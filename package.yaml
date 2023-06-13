@@ -1,4 +1,4 @@
 name: sht20
-description: Toit driver for SHT20 Digital Temperature and Humidity Sensor.
+description: Driver for the SHT20 Digital Temperature and Humidity Sensor.
 environment:
-  sdk: ^2.0.0-alpha.1
+  sdk: ^2.0.0-alpha.86

@@ -1,12 +1,10 @@
-# toit-sht20
+# SHT20
 
-Toit driver for SHT20 Digital Temperature and Humidity Sensor
+Toit driver for SHT20 Digital Temperature and Humidity Sensor.
 
 # Installation
 
 ```bash
-toit pkg sync
-
 toit pkg install github.com/renebohne/toit-sht20
 ```
 
@@ -15,20 +13,20 @@ toit pkg install github.com/renebohne/toit-sht20
 ```toit
 import i2c
 import gpio
-import sht20
+import sht20 show *
 
 main:
     bus := i2c.Bus
-      --sda=gpio.Pin 0
-      --scl=gpio.Pin 26
+        --sda=gpio.Pin 0
+        --scl=gpio.Pin 26
 
-    device := bus.device sht20.SHT20Driver.I2C_ADDRESS
+    device := bus.device Sht20.I2C_ADDRESS
 
-    driver := sht20.SHT20Driver device
-    
+    sensor := Sht20 device
+
     while true:
-      print "$driver.read_temperature C"
-      print "$driver.read_humidity %"
+      print "$sensor.read_temperature C"
+      print "$sensor.read_humidity %"
       sleep --ms=1000
 ```
 
@@ -38,7 +36,6 @@ Please file feature requests and bugs at the [issue tracker][tracker].
 
 [tracker]: https://github.com/renebohne/toit-sht20/issues
 
-# Credits 
+# Credits
 
 This library is inspired by https://github.com/RobTillaart/SHT2x and https://github.com/harshkc03/sht31-d_driver
-
