@@ -3,7 +3,7 @@
 // in the LICENSE file.
 
 import i2c
-import crypto.crc show crc8_maxim
+import crypto.crc show Crc
 
 /**
 Driver for SHT20 sensor.
@@ -33,9 +33,10 @@ class Sht20:
     sleep --ms=85
 
     data := device_.read 3
+    calculated_crc := crc8_sht20 data[..2]
 
-    if data[2] != (crc8_maxim data[..2]):
-      throw "CRC error"
+    if data[2] != calculated_crc:
+      throw "CRC error: $data[2]!=$calculated_crc"
 
     // Raw temperature reading.
     // The two least significant bits are used for transmitting status information.
@@ -55,9 +56,10 @@ class Sht20:
     sleep --ms=29
 
     data := device_.read 3
+    calculated_crc := crc8_sht20 data[..2]
 
-    if data[2] != (crc8_maxim data[..2]):
-      throw "CRC error"
+    if data[2] != (crc8_sht20 data[..2]):
+      throw "CRC error: $data[2]!=$calculated_crc"
 
     // Raw humidity reading.
     // The two least significant bits are used for transmitting status information.
@@ -77,3 +79,8 @@ class Sht20:
   write_simple_command_ command/int:
     cmd := #[command]
     device_.write cmd
+
+  crc8_sht20 data -> int:
+    mycrc := Crc.big_endian 8 --polynomial=0x31 
+    mycrc.add data
+    return mycrc.get_as_int
