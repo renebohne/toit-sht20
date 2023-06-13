@@ -5,7 +5,7 @@ Toit driver for SHT20 Digital Temperature and Humidity Sensor.
 # Installation
 
 ```bash
-toit pkg install github.com/renebohne/toit-sht20
+jag pkg install github.com/renebohne/toit-sht20
 ```
 
 # Usage
