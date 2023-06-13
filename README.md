@@ -35,6 +35,7 @@ main:
 ## Features and bugs
 
 Please file feature requests and bugs at the [issue tracker][tracker].
+
 [tracker]: https://github.com/renebohne/toit-sht20/issues
 
 # Credits 
